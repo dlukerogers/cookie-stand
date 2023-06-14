@@ -6,6 +6,8 @@ const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm',
 
 let locations = [];
 
+let tableBody, tableFooter, tableHead;
+
 function Store(name, minCustomers, maxCustomers, avgCustomers) {
   this.name = name;
   this.minCustomers = minCustomers;
@@ -37,28 +39,29 @@ Store.prototype.setCookiesTotal = function () {
 };
 
 Store.prototype.renderTable = function() {
+  let tableDataRow = document.createElement('tr');
+  tableBody.appendChild(tableDataRow);
+  let tableLocations = document.createElement('th');
+  tableLocations.textContent = this.name;
+  tableDataRow.appendChild(tableLocations);
   for (let i = 0; i < hours.length; i++) {
-    let tableLocationsRow = document.createElement('tr');
-    tableHead.appendChild(tableLocationsRow);
-    let tableLocations = document.createElement('th');
-    tableLocations.textContent = locations[i];
-    tableLocationsRow.appendChild(tableLocations);
-    let tableHoursRow = document.createElement('tr');
-    tableBody.appendChild(tableHoursRow);
-    let tableHours = document.createElement('td');
-    tableHours.textContent = hours[i];
-    tableHoursRow.appendChild(tableHours);
-    let tableDataRow = document.createElement('tr');
-    tableBody.appendChild(tableDataRow);
+    // let tableLocationsRow = document.createElement('tr');
+    // tableHead.appendChild(tableLocationsRow);
+    // tableLocationsRow.appendChild(tableLocations);
+    // let tableHoursRow = document.createElement('tr');
+    // tableBody.appendChild(tableHoursRow);
+    // let tableHours = document.createElement('td');
+    // tableHours.textContent = hours[i];
+    // tableHoursRow.appendChild(tableHours);
     let tableData = document.createElement('td');
     tableData.textContent = this.cookiesArray[i];
     tableDataRow.appendChild(tableData);
-    let tableTotalCookiesRow = document.createElement('tr');
-    tableFooter.appendChild(tableTotalCookiesRow);
-    let tableTotalCookies = document.createElement('td');
-    tableTotalCookies.textContent = this.dailyTotal;
-    tableTotalCookiesRow.appendChild(tableTotalCookies);
+    // let tableTotalCookiesRow = document.createElement('tr');
+    // tableFooter.appendChild(tableTotalCookiesRow);
   }
+  let tableTotalCookies = document.createElement('td');
+  tableTotalCookies.textContent = this.dailyTotal;
+  tableDataRow.appendChild(tableTotalCookies);
 };
 
 // Store.prototype.renderTableData = function() {
@@ -90,8 +93,6 @@ Store.prototype.renderTable = function() {
 //   liTotal.textContent = `Total: ${this.dailyTotal}`;
 //   list.appendChild(liTotal);
 // };
-let tableBody, tableFooter, tableHead;
-
 
 function renderTableBody() {
   tableBody = document.createElement('tbody');
@@ -106,6 +107,19 @@ function renderTableFooter() {
 function renderTableHead() {
   tableHead = document.createElement('thead');
   table.appendChild(tableHead);
+  //add in table header rows and data using hours
+  let tableHeadRow = document.createElement('tr');
+  tableHead.appendChild(tableHeadRow);
+  let blankCell = document.createElement('th');
+  tableHeadRow.appendChild(blankCell);
+  for (let i = 0; i < hours.length; i++) {
+    let tableHeadHours = document.createElement('th');
+    tableHeadHours.textContent = hours[i];
+    tableHeadRow.appendChild(tableHeadHours);
+  }
+  let tableTotalHeader = document.createElement('th');
+  tableTotalHeader.textContent = 'Daily Location Total';
+  tableHeadRow.appendChild(tableTotalHeader);
 }
 
 function renderAllLocations () {

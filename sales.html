@@ -36,16 +36,16 @@
       <fieldset>
         <legend>Enter New Location Information</legend>
         <label>Location Name
-          <input type="text" name="locName" placeholder="ex: Seattle">
+          <input type="text" name="locName" placeholder="ex: Seattle" required>
         </label>
         <label>Minimum Amount of Customers per Hour
-          <input type="number" name="minCust">
+          <input type="number" name="minCust" required>
         </label>
         <label>Maximum Amount of Customers per Hour
-          <input type="number" name="maxCust">
+          <input type="number" name="maxCust" required>
         </label>
         <label>Average Cookies Purchased per Customer
-          <input type="number" name="avgCookies">
+          <input type="number" name="avgCookies" required step=".1" min="1">
         </label>
         <button type="submit">Submit to Table</button>
       </fieldset>

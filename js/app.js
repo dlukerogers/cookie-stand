@@ -8,6 +8,8 @@ let locations = [];
 
 let tableBody, tableFooter, tableHead;
 
+let salesForm = document.getElementById('sales-form');
+
 function Store(name, minCustomers, maxCustomers, avgCustomers) {
   this.name = name;
   this.minCustomers = minCustomers;
@@ -105,21 +107,33 @@ function renderTableBody() {
 }
 
 function renderTableFooter() {
+  console.log('location array', locations);
   tableFooter = document.createElement('tfoot');
   table.appendChild(tableFooter);
-  // let tableFooterRow = document.createElement('tr');
-  // tableFooter.appendChild(tableFooterRow);
-  // for (let i = 0; i < hours.length; i++) {
-  //   let tableFooterTotal = document.createElement('td');
-  //   tableFooterTotal.textContent = totalCookiesAtEachHour;
-  //   tableFooterRow.appendChild(tableFooterTotal);
-  // }
+  let tableFooterRow = document.createElement('tr');
+  tableFooter.appendChild(tableFooterRow);
+  let grandTotal = 0;
+  let tableTotal = document.createElement('td');
+  tableTotal.textContent = 'Total Per Hour';
+  tableFooterRow.appendChild(tableTotal);
+  for (let i = 0; i < hours.length; i++) {
+    let columnHourlyTotal = 0;
+    for (let j = 0; j < locations.length; j++) {
+      columnHourlyTotal += locations[j].cookiesArray[i];
+      grandTotal += locations[j].cookiesArray[i];
+    }
+    let tableFooterTotal = document.createElement('td');
+    tableFooterTotal.textContent = columnHourlyTotal;
+    tableFooterRow.appendChild(tableFooterTotal);
+  }
+  let footerGrandTotal = document.createElement('td');
+  footerGrandTotal.textContent = grandTotal;
+  tableFooterRow.appendChild(footerGrandTotal);
 }
 
 function renderTableHead() {
   tableHead = document.createElement('thead');
   table.appendChild(tableHead);
-  //add in table header rows and data using hours
   let tableHeadRow = document.createElement('tr');
   tableHead.appendChild(tableHeadRow);
   let blankCell = document.createElement('th');
@@ -145,18 +159,46 @@ function renderAllLocations () {
   console.log(locations);
 }
 
+function handleSubmit(event) {
+  event.preventDefault();
+  let locName = event.target.locName.value;
+  let minCust = parseInt(event.target.minCust.value);
+  let maxCust = parseInt(event.target.maxCust.value);
+  let avgCookies = parseInt(event.target.avgCookies.value);
+
+  let newLocation = new Store(
+    locName,
+    minCust,
+    maxCust,
+    avgCookies
+  );
+  console.log(newLocation);
+  newLocation.setCustomersPerHour();
+  newLocation.setCookiesPerHour();
+  newLocation.setCookiesTotal();
+  newLocation.renderTable();
+  event.target.locName.value = null;
+  event.target.minCust.value = null;
+  event.target.maxCust.value = null;
+  event.target.avgCookies.value = null;
+  tableFooter.innerHTML = '';
+  renderTableFooter();
+}
+
 //executable code
-renderTableHead();
+
+new Store('Seattle', 23, 65, 6.3);
+new Store('Tokyo', 3, 24, 1.2);
+new Store('Dubai', 11, 38, 3.7);
+new Store('Paris', 20, 38, 2.3);
+new Store('Lima', 2, 16, 4.6);
+
 renderTableBody();
+renderTableHead();
+renderAllLocations();
 renderTableFooter();
 
-let seattle = new Store('Seattle', 23, 65, 6.3);
-let tokyo = new Store('Tokyo', 3, 24, 1.2);
-let dubai = new Store('Dubai', 11, 38, 3.7);
-let paris = new Store('Paris', 20, 38, 2.3);
-let lima = new Store('Lima', 2, 16, 4.6);
-
-renderAllLocations();
+salesForm.addEventListener('submit', handleSubmit);
 
 
 // let seattle = {

@@ -1,6 +1,6 @@
 # cookie-stand
 
-Labs 06 +
+Labs 06 - 09
 
 ## Lighthouse reports
 

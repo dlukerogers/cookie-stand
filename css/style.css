@@ -7,9 +7,7 @@ table, td, th {
   border: 2px solid rgb(26, 152, 168);
 }
 table {
-  margin: 1rem;
-  position: relative;
-  right: 150px
+  margin: 1rem auto;
 }
 td, th {
   padding: 1rem;
@@ -27,9 +25,9 @@ tfoot {
 /* -- Form styles -- */
 form {
   width: 100%;
-  margin-top: 2rem;
-  position: relative;
-  right: 130px;
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
 }
 fieldset {
   border: 1px solid rgb(112, 159, 165);
@@ -71,7 +69,18 @@ header {
   width: 100%;
 }
 
-h1, h2, h3, h4 {
+a {
+  text-decoration: none;
+}
+
+h2 {
+  padding-top: 5px;
+  margin-left: 20px;
+  color: rgb(57, 57, 57);
+  font-weight: bold;
+}
+
+h1, h3, h4 {
   font-family: 'Poppins', sans-serif;
   color: #008080;
 }
@@ -79,6 +88,7 @@ h1, h2, h3, h4 {
 h1 {
   margin: auto;
   font-size: 40px;
+  font-weight: bolder;
 }
 
 header img {
@@ -114,20 +124,29 @@ li > a {
 
 main {
   margin: auto;
-  width: 852px;
+  width: 1000px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 30px;
+}
+
+main > p {
+  width: 33%;
+  text-align: center;
+  font-size: 25px;
 }
 
 main img {
   margin-bottom: 30px;
+  border: 3px solid black;
+  border-radius: 7px;
 }
 
 #heroimg {
   width: 852;
   height: 480;
+  margin-top: 50px;
 }
 
 #subimg1 {
